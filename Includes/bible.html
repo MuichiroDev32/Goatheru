@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RANDOM HOLY BIBLE VERSE GENERATOR</title>
+    <style>
+        html, body {
+            overflow: hidden;
+            height: 100%;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://i.imgur.com/pswtMQF.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: black;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            margin-right: 10px;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out;
+        }
+        .button:last-child {
+            margin-right: 0;
+        }
+        .button:hover {
+            background-color: cyan;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .animated-button {
+            animation: pulse 2s infinite;
+        }
+        img {
+            border-radius: 15px;
+            animation: pulse 2s infinite alternate;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
+        @media only screen and (max-width: 600px) {
+            .button {
+                padding: 12px 24px;
+                font-size: 16px;
+                margin-bottom: 15px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://i.imgur.com/5rYLVyF.jpeg" alt="Holy Icon" style="width: 250px;">
+        <h1>WORDS OF GODS</h1><br></br>
+        <p id="biblePassage">GET AND GENERATE A RANDOM BIBLE VERSE. PRESS THE BUTTON TO GENERATE. THIS BIBLE VERSE GENERATOR CONTAINS OLD/NEW TESTAMENT.</p><br></br>
+        <button class="button animated-button" onclick="getRandomPassage()" id="divineMessageButton">GENERATE BIBLE VERSE</button>
+        <button class="button" id="copyButton">COPY TEXT TO CLIPBOARD</button>
+        <p style="font-size: 20px; color: black; margin-top: 20px;">Design and Created By Jaymar Alcedo</p>
+    </div>
+
+    <script>
+        function getRandomPassage() {
+            fetch('https://labs.bible.org/api/?passage=random')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('biblePassage').innerHTML = data;
+                    document.getElementById('divineMessageButton').innerText = 'GENERATE NEW';
+                })
+                .catch(error => {
+                    console.error('Error fetching random bible verse:', error);
+                });
+        }
+
+        document.getElementById('copyButton').addEventListener('click', function() {
+            var textToCopy = document.getElementById('biblePassage').textContent;
+
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    alert('VERSE COPIED TO CLIPBOARD');
+                })
+                .catch(err => {
+                    console.error('ERROR COPYING THE VERSE', err);
+                });
+        });
+    </script>
+</body>
+</html>
+
